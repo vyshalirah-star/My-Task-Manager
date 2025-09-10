@@ -27,6 +27,7 @@ It allows creating, updating, retrieving, and deleting tasks and categories, wit
 - Category Operations:-Retrieve all categories, create a new category. 
                       - Cascade deletion: deleting a category deletes all associated tasks.  
 - Due Date Tracking: Tasks include due dates and support automated reminders or notifications, which can be tested via the console or Swagger UI.
+     <img width="592" height="148" alt="image" src="https://github.com/user-attachments/assets/e97c6da3-23f4-4447-b556-d447aeec2d61" />
 - Supports scalar and list responses for easy consumption.  
 
 ---
