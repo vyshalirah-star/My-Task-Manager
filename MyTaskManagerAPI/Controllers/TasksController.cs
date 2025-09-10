@@ -18,7 +18,7 @@ namespace MyTaskManagerAPI.Controllers
             _context = context;
         }
 
-        // GET: api/tasks
+        // GET: all details
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
@@ -28,7 +28,7 @@ namespace MyTaskManagerAPI.Controllers
             return Ok(tasks);
         }
 
-        // GET: api/tasks?taskId=1&categoryId=2
+        // GET: taskId & categoryId as inputs
         [HttpGet("{taskId}/{categoryId}")]
         public async Task<IActionResult> GetTask(int taskId, int categoryId)
         {
@@ -40,7 +40,7 @@ namespace MyTaskManagerAPI.Controllers
             return Ok(task);
         }
 
-        // GET: api/tasks/filter?categoryId=1&taskId=2&isActive=true
+        // GET: categoryId & taskId & isActive
         [HttpGet("filter")]
         public async Task<IActionResult> GetTasksByArchiveStatus(
             [FromQuery, BindRequired] int categoryId,   // Required
@@ -59,7 +59,7 @@ namespace MyTaskManagerAPI.Controllers
             return Ok(tasks);
         }
 
-        // POST: api/tasks
+        // POST : insertion
         [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] Models.Task task)
         {
@@ -73,7 +73,7 @@ namespace MyTaskManagerAPI.Controllers
             return CreatedAtAction(nameof(GetTask), new { taskId = task.TaskId, categoryId = task.CategoryId }, task);
         }
 
-        // PUT: api/tasks?taskId=1&categoryId=2
+        // PUT: updates all except - taskId & categoryId
         [HttpPut("{taskId}/{categoryId}")]
         public async Task<IActionResult> UpdateTask(int taskId, int categoryId, [FromBody] Models.Task task)
         {
@@ -85,7 +85,7 @@ namespace MyTaskManagerAPI.Controllers
             return NoContent();
         }
 
-        // PATCH: api/tasks/complete?taskId=1&categoryId=2
+        // PATCH: taskId &categoryId as inputs, update particular fields
         [HttpPatch("complete/{taskId}/{categoryId}")]
         public async Task<IActionResult> MarkComplete(int taskId, int categoryId)
         {
@@ -102,7 +102,7 @@ namespace MyTaskManagerAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/tasks?taskId=1&categoryId=2
+        // DELETE: based on taskId &categoryId 
         [HttpDelete("{taskId}/{categoryId}")]
         public async Task<IActionResult> DeleteTask(int taskId,  int categoryId)
         {
