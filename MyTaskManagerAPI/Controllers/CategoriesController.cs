@@ -16,6 +16,7 @@ namespace MyTaskManagerAPI.Controllers
             _context = context;
         }
 
+        //GET: Get all 
         [HttpGet]
         public async Task<IActionResult> GetCategories()
         {
@@ -25,6 +26,7 @@ namespace MyTaskManagerAPI.Controllers
             return Ok(categories);
         }
 
+        //POST: Insertion 
         [HttpPost]
         public async Task<IActionResult> CreateCategory(Category category)
         {
@@ -33,7 +35,7 @@ namespace MyTaskManagerAPI.Controllers
             return CreatedAtAction(nameof(GetCategories), new { id = category.CategoryId }, new { category.CategoryId, category.Name, category.Description });
         }
         
-        // DELETE: api/categories/{categoryId}
+        // DELETE: based on categoryId
         [HttpDelete("{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
@@ -43,15 +45,13 @@ namespace MyTaskManagerAPI.Controllers
 
             if (category == null) return NotFound();
 
-            // Delete all tasks related to this category
             var tasks = await _context.Tasks
                                       .Where(t => t.CategoryId == categoryId)
                                       .ToListAsync();
 
             if (tasks.Any())
-                _context.Tasks.RemoveRange(tasks);
+                _context.Tasks.RemoveRange(tasks); //deletes all tasks related to given category
 
-            // Delete category
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
