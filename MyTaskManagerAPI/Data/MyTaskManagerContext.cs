@@ -13,7 +13,12 @@ namespace MyTaskManagerAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+             // Store enum as string in DB
+            modelBuilder.Entity<MyTaskManagerAPI.Models.Task>()
+                .Property(t => t.Priority)
+                .HasConversion<string>();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
